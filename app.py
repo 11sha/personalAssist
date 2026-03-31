@@ -27,14 +27,13 @@ data = load_data()
 # ----------------------------
 # Page layout
 # ----------------------------
-st.set_page_config(page_title="TITLE", layout="centered")
+st.set_page_config(page_title="Kachu Phool", layout="centered")
 
-st.title("TITLE")
-st.subheader("sub heading")
+st.title("Kachu Phool")
+st.subheader("Game Setup")
 
 st.write(
-    "This is a short text section. "
-    "It can explain the game, rules, or purpose of the app."
+    " Add the number of players and the player names to begin!"
 )
 
 st.divider()
