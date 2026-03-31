@@ -1,10 +1,9 @@
-
 import streamlit as st
 import json
 from pathlib import Path
 
 # ----------------------------
-# Persistence (simple + safe)
+# Persistence
 # ----------------------------
 DATA_FILE = Path("players_data.json")
 
@@ -25,34 +24,35 @@ def save_data(num_players, players):
 data = load_data()
 
 # ----------------------------
-# Page layout
+# Page
 # ----------------------------
-st.set_page_config(page_title="Kachu Phool", layout="centered")
+st.set_page_config(page_title="TITLE", layout="centered")
 
-st.title("Kachu Phool")
-st.subheader("Game Setup")
+st.title("TITLE")
+st.subheader("sub heading")
 
 st.write(
-    " Add the number of players and the player names to begin!"
+    "This is a short text section. "
+    "It can be used to explain the game or setup."
 )
 
 st.divider()
 
 # ----------------------------
-# Number of players selector
+# Player count
 # ----------------------------
 st.subheader("NUMBER OF PLAYERS")
 
 if "num_players" not in st.session_state:
     st.session_state.num_players = data["num_players"]
 
-col_minus, col_num, col_plus = st.columns([1, 2, 1])
+col_minus, col_number, col_plus = st.columns([1, 2, 1])
 
 with col_minus:
     if st.button("➖"):
         st.session_state.num_players = max(1, st.session_state.num_players - 1)
 
-with col_num:
+with col_number:
     st.markdown(
         f"<h1 style='text-align:center'>{st.session_state.num_players}</h1>",
         unsafe_allow_html=True
@@ -65,30 +65,33 @@ with col_plus:
 st.divider()
 
 # ----------------------------
-# Player name inputs
+# Player names
 # ----------------------------
 st.subheader("PLAYER NAMES")
 
 players = []
-existing_players = data.get("players", [])
+saved_players = data.get("players", [])
 
 for i in range(st.session_state.num_players):
     default_name = (
-        existing_players[i]
-        if i < len(existing_players)
+        saved_players[i]
+        if i < len(saved_players)
         else f"Player {i + 1}"
     )
 
     name = st.text_input(
-        label=f"Player {i + 1} Name",
+        f"Player {i + 1} Name",
         value=default_name,
         key=f"player_{i}"
     )
     players.append(name)
 
-# ----------------------------
-# Save state
-# ----------------------------
-save_data(st.session_state.num_players, players)
+st.divider()
 
-st.success("✅ Player count and names saved")
+# ----------------------------
+# Save + Navigate
+# ----------------------------
+if st.button("💾 Save Changes"):
+    save_data(st.session_state.num_players, players)
+    st.success("Changes saved!")
+    st.switch_page("pages/round_1.py")
