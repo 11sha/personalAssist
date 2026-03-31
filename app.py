@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
-<body>
+import streamlit as st
+from PIL import Image, ImageDraw
 
-<h1>My First Heading</h1>
+st.title("✅ Connection Test")
 
-<p>My first paragraph.</p>
+# Create a blank image
+img = Image.new("RGB", (200, 200), "white")
+draw = ImageDraw.Draw(img)
 
-</body>
-</html>
+# Draw a black square
+draw.rectangle([50, 50, 150, 150], fill="black")
 
+# Show the image
+st.image(img, caption="Black square = success ✅")
