@@ -94,4 +94,4 @@ st.divider()
 if st.button("💾 Save Changes"):
     save_data(st.session_state.num_players, players)
     st.success("Changes saved!")
-    st.switch_page("Round 1")
+    st.switch_page("pages/round_1.py")
