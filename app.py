@@ -93,5 +93,9 @@ st.divider()
 # ----------------------------
 if st.button("💾 Save Changes"):
     save_data(st.session_state.num_players, players)
-    st.success("Changes saved!")
-    st.switch_page("pages/round_1.py")
+
+    # mark setup complete
+    st.session_state["setup_complete"] = True
+
+    st.success("Changes saved! ✅")
+    st.info("⬅️ Use the sidebar to open **Round 1**")
